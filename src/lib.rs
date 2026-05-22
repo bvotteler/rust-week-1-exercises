@@ -1,12 +1,9 @@
 use std::collections::HashMap;
 
 // Name Assignment (variables and constants)
-// TODO: Assign the current bitcoin mining reward
-pub const MINING_REWARD: f64 = 0.0;
-// TODO: Assign the current block height
-pub const CURRENT_BLOCK_HEIGHT: u64 = 0;
-// TODO: Assign the number of satoshis in one Bitcoin
-pub const BTC_TO_SATS: u64 = 0;
+pub const MINING_REWARD: f64 = 3.125;
+pub const CURRENT_BLOCK_HEIGHT: u64 = 950479;
+pub const BTC_TO_SATS: u64 = 100_000_000;
 
 #[derive(Debug, Clone, PartialEq)]
 pub struct Utxo {
