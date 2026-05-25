@@ -69,8 +69,8 @@ pub fn is_same_wallet<T>(wallet1: &T, wallet2: &T) -> bool {
 
 /// Normalize a Bitcoin address by trimming whitespace and lowercasing.
 pub fn normalize_address(address: &str) -> String {
-    // TODO: Trim leading/trailing whitespace and convert to lowercase
-    todo!()
+    // Trim leading/trailing whitespace and convert to lowercase
+    String::from(address.to_lowercase().trim())
 }
 
 /// Append a new UTXO to the list and return the updated list.
