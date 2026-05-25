@@ -207,9 +207,15 @@ pub fn create_utxo(
     vout: u32,
     extra: HashMap<String, String>,
 ) -> HashMap<String, String> {
-    // TODO: Build a base map with "txid" and "vout" (as string)
-    // TODO: Merge extra into the base map and return
-    todo!()
+    // Build a base map with "txid" and "vout" (as string)
+    let base_map: HashMap<String, String> = HashMap::from([
+        (String::from("txid"), String::from(txid)),
+        (String::from("vout"), vout.to_string()),
+    ]);
+
+    // Merge extra into the base map and return
+    // note: merge "backwards" to avoid extra overriding base_map values
+    extra.clone().into_iter().chain(base_map).collect()
 }
 
 // Implement extract_tx_version function below
