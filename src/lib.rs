@@ -83,8 +83,14 @@ pub fn add_utxo(utxos: Vec<Utxo>, new_utxo: Utxo) -> Vec<Utxo> {
 
 /// Find the first transaction with a fee greater than 0.005 BTC.
 pub fn find_high_fee(fee_list: &[f64]) -> Option<(usize, f64)> {
-    // TODO: Iterate with enumerate and return the first (index, fee) where fee > 0.005
-    todo!()
+    // Iterate with enumerate and return the first (index, fee) where fee > 0.005
+    for (idx, &fee) in fee_list.iter().enumerate() {
+        if fee > 0.005 {
+            return Some((idx, fee));
+        }
+    }
+
+    None
 }
 
 /// Return basic wallet details as a tuple of (name, balance).
