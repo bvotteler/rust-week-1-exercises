@@ -75,8 +75,10 @@ pub fn normalize_address(address: &str) -> String {
 
 /// Append a new UTXO to the list and return the updated list.
 pub fn add_utxo(utxos: Vec<Utxo>, new_utxo: Utxo) -> Vec<Utxo> {
-    // TODO: Push new_utxo into utxos and return it
-    todo!()
+    // Push new_utxo into utxos and return it
+    let mut updated_utxos = utxos.clone();
+    updated_utxos.push(new_utxo);
+    updated_utxos
 }
 
 /// Find the first transaction with a fee greater than 0.005 BTC.
