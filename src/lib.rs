@@ -1,3 +1,4 @@
+use rand::Rng;
 use std::collections::HashMap;
 
 // Name Assignment (variables and constants)
@@ -134,9 +135,20 @@ pub fn calculate_sats(btc: f64) -> u64 {
 
 /// Generate a mock Bitcoin address of length 32 with the given prefix.
 pub fn generate_address(prefix: &str) -> String {
-    // TODO: Build a random suffix of (32 - prefix.len()) chars from [a-z0-9]
-    // TODO: Concatenate prefix + suffix and return
-    todo!()
+    // Build a random suffix of (32 - prefix.len()) chars from [a-z0-9]
+    const CHARSET: &[u8] = b"abcdefghijklmnopqrstuvwxyz0123456789";
+    const CS_LEN: usize = CHARSET.len();
+    let suffix_len = 32 - prefix.len();
+    let mut rng = rand::thread_rng();
+    let suffix: String = (0..suffix_len)
+        .map(|_| {
+            let i = rng.gen_range(0..CS_LEN);
+            CHARSET[i] as char
+        })
+        .collect();
+
+    // Concatenate prefix + suffix and return
+    prefix.to_string() + &suffix
 }
 
 /// Validate a Bitcoin block height. Returns (is_valid, message).
