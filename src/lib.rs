@@ -122,8 +122,14 @@ pub fn unpack_wallet_info(wallet_info: (String, f64)) -> String {
 
 /// Convert BTC to satoshis (1 BTC = 100,000,000 sats).
 pub fn calculate_sats(btc: f64) -> u64 {
-    // TODO: Multiply btc by BTC_TO_SATS and return as u64
-    todo!()
+    // Multiply btc by BTC_TO_SATS and return as u64
+    let prod_floored = (btc * BTC_TO_SATS as f64).floor();
+
+    // panic on edge cases
+    if prod_floored.is_nan() || prod_floored < 0.0 || prod_floored > (u64::MAX as f64) {
+        panic!("Unable to calculate positive integer (u64) from btc input: {btc}");
+    }
+    prod_floored as u64
 }
 
 /// Generate a mock Bitcoin address of length 32 with the given prefix.
