@@ -153,10 +153,21 @@ pub fn generate_address(prefix: &str) -> String {
 
 /// Validate a Bitcoin block height. Returns (is_valid, message).
 pub fn validate_block_height(height: i64) -> (bool, String) {
-    // TODO: Check that height is not negative
-    // TODO: Check that height is within a realistic range (<= 800_000)
-    // TODO: Return (true, "Valid block height") otherwise
-    todo!()
+    // Check that height is not negative
+    if height < 0 {
+        return (false, String::from("height cannot be negative"));
+    }
+    // Check that height is within a realistic range (<= 800_000)
+    // note: realistic height is higher by now, but the test explicitly tests for a lower
+    // "unrealistic" height
+    if height > 800_000 {
+        return (
+            false,
+            String::from("unrealistic height: {height}, max expected: 800000"),
+        );
+    }
+    // Return (true, "Valid block height") otherwise
+    (true, String::from("Valid block height"))
 }
 
 /// Compute the block reward (in sats) for each block height based on the halving schedule.
