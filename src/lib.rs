@@ -14,8 +14,12 @@ pub struct Utxo {
 
 /// Calculate the total Bitcoin reward for a given number of mined blocks.
 pub fn calculate_total_reward(blocks_mined: u64) -> f64 {
-    // note: lossy casting from u64 to f64!
-    // TODO: convert to safer cast
+    // f64 can only represent int up to 2^53, check if blocks_mined fits
+    if blocks_mined > (1 << 53) {
+        panic!("converting too large number of blocks_mined (value: {}) of type u64 to f64 leads to loss of precision", blocks_mined);
+    }
+
+    // still possible: result is infinite or NaN, but f64 type should encapsulate that error.
     return blocks_mined as f64 * MINING_REWARD;
 }
 
