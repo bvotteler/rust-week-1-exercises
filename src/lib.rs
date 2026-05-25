@@ -172,10 +172,21 @@ pub fn validate_block_height(height: i64) -> (bool, String) {
 
 /// Compute the block reward (in sats) for each block height based on the halving schedule.
 pub fn halving_schedule(blocks: &[u64]) -> HashMap<u64, u64> {
-    // TODO: Base reward is 50 * 100_000_000 sats; halving interval is 210_000 blocks
-    // TODO: For each block: halvings = block / 210_000; reward = base >> halvings
-    // TODO: Insert (block, reward) into the result HashMap
-    todo!()
+    let mut rewards_map: HashMap<u64, u64> = HashMap::new();
+
+    // Base reward is 50 * 100_000_000 sats; halving interval is 210_000 blocks
+    let base: u64 = 50 * 100_000_000;
+
+    // For each block: halvings = block / 210_000; reward = base >> halvings
+    for block in blocks {
+        let halvings: u64 = block / 210_000;
+        let reward: u64 = base >> halvings;
+
+        // Insert (block, reward) into the result HashMap
+        rewards_map.insert(block.clone(), reward);
+    }
+
+    rewards_map
 }
 
 /// Find the UTXO with the smallest value that meets or exceeds target.
