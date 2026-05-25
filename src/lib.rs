@@ -14,8 +14,9 @@ pub struct Utxo {
 
 /// Calculate the total Bitcoin reward for a given number of mined blocks.
 pub fn calculate_total_reward(blocks_mined: u64) -> f64 {
-    // TODO: Multiply blocks_mined by MINING_REWARD and return result
-    todo!()
+    // note: lossy casting from u64 to f64!
+    // TODO: convert to safer cast
+    return blocks_mined as f64 * MINING_REWARD;
 }
 
 /// Return true if the transaction fee is between 0.00001 and 0.01 BTC.
