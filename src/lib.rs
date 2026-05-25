@@ -220,5 +220,17 @@ pub fn create_utxo(
 
 // Implement extract_tx_version function below
 pub fn extract_tx_version(raw_tx_hex: &str) -> Result<u32, String> {
+    // get first 8 bytes (if they exist)
+    let version_slice = raw_tx_hex
+        .get(0..8)
+        // return error early if not enough data
+        .ok_or_else(|| "Transaction data too short")?;
+
+    // check all are valid hex digits
+    let is_valid_hex = version_slice.chars().all(|c| c.is_ascii_hexdigit());
+    if !is_valid_hex {
+        return Err(format!("Hex decode error for: '{version_slice}'"));
+    }
+
     todo!()
 }
