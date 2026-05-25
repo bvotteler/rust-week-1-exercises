@@ -20,17 +20,17 @@ pub fn calculate_total_reward(blocks_mined: u64) -> f64 {
     }
 
     // still possible: result is infinite or NaN, but f64 type should encapsulate that error.
-    return blocks_mined as f64 * MINING_REWARD;
+    blocks_mined as f64 * MINING_REWARD
 }
 
 /// Return true if the transaction fee is between 0.00001 and 0.01 BTC.
 pub fn is_valid_tx_fee(fee: f64) -> bool {
-    return fee >= 0.00001 && fee <= 0.01;
+    fee >= 0.00001 && fee <= 0.01
 }
 
 /// Return true if the wallet balance is greater than 50.0 BTC.
 pub fn is_large_balance(balance: f64) -> bool {
-    return balance > 50.0;
+    balance > 50.0
 }
 
 /// Return the priority of a transaction ("high", "medium", "low") based on fee rate.
@@ -43,11 +43,11 @@ pub fn tx_priority(size_bytes: u64, fee_btc: f64) -> &'static str {
 
     // High: > 0.00005, Medium: > 0.00001, otherwise Low
     if fee_rate > 0.00005 {
-        return "high";
+        "high"
     } else if fee_rate > 0.00001 {
-        return "medium";
+        "medium"
     } else {
-        return "low";
+        "low"
     }
 }
 
