@@ -35,9 +35,20 @@ pub fn is_large_balance(balance: f64) -> bool {
 
 /// Return the priority of a transaction ("high", "medium", "low") based on fee rate.
 pub fn tx_priority(size_bytes: u64, fee_btc: f64) -> &'static str {
-    // TODO: Calculate fee rate (fee_btc / size_bytes) and use if/else if/else
+    if size_bytes > (1 << 53) {
+        panic!("converting too large number of size_bytes (value: {}) of type u64 to f64 leads to loss of precision", size_bytes);
+    }
+
+    let fee_rate = fee_btc / size_bytes as f64;
+
     // High: > 0.00005, Medium: > 0.00001, otherwise Low
-    todo!()
+    if fee_rate > 0.00005 {
+        return "high";
+    } else if fee_rate > 0.00001 {
+        return "medium";
+    } else {
+        return "low";
+    }
 }
 
 /// Return true if the network string equals "mainnet" (case-insensitive).
