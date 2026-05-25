@@ -226,11 +226,13 @@ pub fn extract_tx_version(raw_tx_hex: &str) -> Result<u32, String> {
         // return error early if not enough data
         .ok_or_else(|| "Transaction data too short")?;
 
-    // check all are valid hex digits
-    let is_valid_hex = version_slice.chars().all(|c| c.is_ascii_hexdigit());
-    if !is_valid_hex {
-        return Err(format!("Hex decode error for: '{version_slice}'"));
-    }
+    // pack into 4*8-bit array using hex crate
+    let mut version_bytes = [0u8; 4];
+    hex::decode_to_slice(version_slice, &mut version_bytes)
+        // map hex decode error to expected format for test
+        .map_err(|err| format!("Hex decode error: {err}"))?;
 
-    todo!()
+    // use u32::from_le_bytes to read version bytes
+    let version: u32 = u32::from_le_bytes(version_bytes);
+    Ok(version)
 }
