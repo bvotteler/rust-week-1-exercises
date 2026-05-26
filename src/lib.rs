@@ -183,7 +183,7 @@ pub fn halving_schedule(blocks: &[u64]) -> HashMap<u64, u64> {
         let reward: u64 = base >> halvings;
 
         // Insert (block, reward) into the result HashMap
-        rewards_map.insert(block.clone(), reward);
+        rewards_map.insert(*block, reward);
     }
 
     rewards_map
