@@ -26,7 +26,7 @@ pub fn calculate_total_reward(blocks_mined: u64) -> f64 {
 
 /// Return true if the transaction fee is between 0.00001 and 0.01 BTC.
 pub fn is_valid_tx_fee(fee: f64) -> bool {
-    fee >= 0.00001 && fee <= 0.01
+    (0.00001..=0.01).contains(&fee)
 }
 
 /// Return true if the wallet balance is greater than 50.0 BTC.
