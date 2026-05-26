@@ -224,7 +224,7 @@ pub fn extract_tx_version(raw_tx_hex: &str) -> Result<u32, String> {
     let version_slice = raw_tx_hex
         .get(0..8)
         // return error early if not enough data
-        .ok_or_else(|| "Transaction data too short")?;
+        .ok_or("Transaction data too short")?;
 
     // pack into 4*8-bit array using hex crate
     let mut version_bytes = [0u8; 4];
